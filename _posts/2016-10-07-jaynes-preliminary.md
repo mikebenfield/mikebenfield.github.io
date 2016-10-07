@@ -5,6 +5,8 @@ title: "Preliminary comments on Jaynes's Probability Theory: The Logic of Scienc
 
 $$\newcommand{\P}{\mathbf P}$$
 
+# Introduction
+
 E.T. Jaynes was a physicist at Washington University in St. Louis. He died in
 1998, but his book *Probability Theory: The Logic of Science* was posthumously
 published in 2003 from his unfinished manuscript. The book is not so much about
@@ -48,28 +50,35 @@ is all a lot of nonsense, based on misunderstandings that were resolved within
 mathematics over a century ago, and well understood by essentially every
 mathematician today.
 
+Jaynes believes his approach to inference circumvents the need for measure
+theory. And, indeed, in finite examples like the urn described above, measure
+theory is entirely unnecessary. But those examples are not why measure theory
+was created: measure theory was developed to handle difficult applications
+involving infinity and limits. That brings us to our first topic.
+
 # Limits
 
 Jaynes displays a considerable amount of anxiety about limits and infinite
 sets. I'm not sure if he would have described himself as
 a [finitist](https://en.wikipedia.org/wiki/Finitism), but his statements
-certainly resemble that philosophy. His worries resemble those of 19th century
-mathematicians, and seem completely anachronistic today. To a modern
+certainly resemble that philosophy. His worries resemble those of early 19th
+century mathematicians, and seem completely anachronistic today. To a modern
 mathematician, there is a simple and precise definition of the term *limit*,
 which has been extensively tested and found to capture exactly the features one
 wants limits to have. In taking a limit operation, a mathematician simply
 ensures that the result follows from the definition.[^1]
 
 [^1]:
-    Actually, the situation in general is more complicated. What exactly
-a limit means depends on the space under consideration, and it may take work to
-determine which space is appropriate to use. However, this is a complete
-nonissue in the mathematically simple problems Jaynes consider.
+    Actually, the situation in general is more complicated. There are different
+types of limits, and which limit is appropriate depends on several factors.
+However, this is a complete nonissue in the mathematically simple problems
+Jaynes consider.
 
 For Jaynes, there appears to be no definition of a limit and no precise way to
 ensure that one's limiting procedures are acceptable. Instead, when one must
-take a limit, one must use ad hoc methods to arrive at the result, and
-carefully check that one's results correspond with intuition.
+take a limit, one must use ad hoc methods to arrive at the result (with a few
+vague guiding principles), and carefully check that one's results correspond
+with intuition.
 
 In section 15.2, Jaynes illustrates that one cannot sum an infinite series by
 arbitrarily rearranging and cancelling terms the way one naively might expect.
@@ -81,29 +90,6 @@ way to sum series, because it does not follow from the definition of a limit.
 There is no need to follow Jaynes's vague dictum, "Apply the ordinary processes
 of arithmetic and analysis only to expressions with a finite number $$n$$ of
 terms." There is only a need to understand what a limit actually is.
-
-At the end of section 15.7, Jaynes described what is elsewhere called Borel's
-paradox. Let $$(\theta, \phi)$$ be longitudinal and latitudinal coordinates on
-the unit sphere. Given the uniform distribution on the unit sphere, the
-conditional density of $$\theta$$ given a fixed $$\phi$$ is uniform (as one
-would expect), while the conditional density of $$\phi$$ given a fixed
-$$\theta$$ varies with $$\phi$$ (which is perhaps counterintuitive). Actually,
-with a little thought this is not so counterintuitive after all. The key is to
-notice that while the density on the sphere is uniform, the random variable
-$$\phi$$ is *not*. If we pick a random point on the sphere, we are more likely
-to pick a point near the equator than near the north poles. Given that fact,
-*of course* we shouldn't expect $$\phi$$ to be uniformly distributed after
-conditioning: it wasn't uniformly distributed to begin with.
-
-Jaynes asserts that Borel's paradox arises because one must define the limiting
-operation used before calculating a conditional probability. Actually,
-shockingly, he says one cannot even define 'great circle' without defining the
-limiting operation used to produce it. Jaynes has missed the point in
-spectacular fashion. Great circles are easily defined and that is not at issue
-here. Instead, one must clearly and precisely define conditional probabilities
-(which Jaynes never does), and then consistently apply that definition in each
-case. Jaynes's preference for ad hockery over clear definitions has gotten him
-into trouble.
 
 # Cox's Theorem
 
@@ -117,20 +103,30 @@ The problem, as is often the case with non-mathematician writers writing
 mathematical works, is that Jaynes never clearly states the theorem.
 I understand that many casual readers of mathematics are turned off by the
 Theorem-proof format that mathematicians often use. It can be boring or
-intimidating or otherwise a turnoff. But its great advantages are
+intimidating or otherwise a turnoff. But its great advantage is that it
+encourages the writer to clearly and precisely state his claim and its proof.
 
-1. it encourages the writer to precisely state his claim and its proof, in one
-place;
-
-2. it allows the reader to easily identify the important statements and their
-proofs.
-
-Instead, Jaynes states a very vague, rough version of the theorem, but feels
-free to introduce extra hypotheses throughout his proof. I still don't actually
-know exactly what the theorem says (someday I will read Cox's work to find
-out).
+Instead, Jaynes states a very vague, rough version of the theorem, but freely
+introduces extra hypotheses throughout his proof. I still don't actually know
+exactly what the theorem says (someday I will read Cox's work to find out).
 
 # Bogus nondifferentiable functions
+
+In the latter half of the 19th century, mathematics was becoming more rigorous,
+and the sometimes incomplete, fast-and-loose reasoning used since the era of
+Newton and Liebniz was being shored up with new techniques. In the course of
+this rigorization process, mathematicians discovered previously unknown
+strangely behaved functions, such as the [Weierstrass
+function](https://en.wikipedia.org/wiki/Weierstrass_function). These functions
+provoked some amount of consternation in the mathematical community at the
+time, but gradually it was realized of these functions that
+
+1. they do indeed exist and have interesting properties, so why not study them?
+
+2. they are actually useful and necessary for some theories; for instance, if
+you want a reasonable mathematical theory involving the Dirac delta, your
+theory must include every continuous function, including the nowhere
+differentiable ones.
 
 In the appendix B.5.3, Jaynes discusses nondifferentiable functions. His
 thesis in this section is hard to discern, but he seems to make the following
@@ -146,14 +142,10 @@ This is inane for a variety of reasons. Most obviously, mathematicians use the
 delta function extensively and have developed the theory of distributions (or
 generalized functions) around it.
 
-Beyond that, points 1 and 2 are very obviously in conflict. The delta function
-is the ultimate representative example of why functions that were formerly
+Beyond that, points 1 and 2 are obviously in conflict. The delta function is
+the ultimate representative example of why functions that were formerly
 considered badly behaved are important. In fact, the delta function is so badly
-behaved that it's not actually even a function! Moreover, even if you don't
-think you have any use for (say) Weierstrass's example of a continuous, nowhere
-differentiable function, it turns out that in order to construct a reasonable
-mathematical theory that includes the delta function, you *have* to include all
-continuous functions, and a lot more besides. See any book on distributions.
+behaved that it's not actually even a function!
 
 At the end of this section, Jaynes writes
 
@@ -171,7 +163,7 @@ At the end of this section, Jaynes writes
 
 At this point I have to wonder if Jaynes ever read a work by a mathematician
 written later than 1920, because all modern mathematicians are very clear about
-which functions their theory applies to, and feel free to ignore classes of
+which functions their theory applies to, and freely ignore other classes of
 functions. The differences between what mathematicians do and what Jaynes
 proposes are
 
@@ -228,7 +220,9 @@ continuous funcions if that's all you need, but the other functions are still
 there for those who need them."
 
 Similarly, the fact that there exist nonmeasurable sets is not an obstacle to
-modeling phenomena like orange peels.
+modeling phenomena like orange peels. If you don't need nonmeasurable sets,
+don't use them, and you won't ever have to worry about phenomena like the
+Hausdorff sphere paradox.
 
 # Conclusion
 
