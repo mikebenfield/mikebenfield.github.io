@@ -24,9 +24,7 @@ frequent in the English language, like "the").
 
 ## Absolute word clouds by season
 
-Here are word clouds displaying the most common words in each season of
-TNG. These are in row major order, so that for example the first row here
-represents Seasons 1, 2, and 3.
+Here are word clouds displaying the most common words in each season of TNG.
 
 ### Absolute word clouds by season - the clouds
 
@@ -114,13 +112,14 @@ are ranked more highly if they appear more often (otherwise, if two words appear
 only in Season 2, one twice and the other 20 times, they would both be ranked
 equally).
 
-I limit the search to the 1000 most common words to avoid very rare words being
-highly ranked just because they only appeared in one season.
+I limit the search to the 1000 most common words (after eliminating stop words)
+to avoid very rare words being highly ranked just because they only appeared in
+one season.
 
-I give no theoretical justification for this choice. I simply experimented with
-a few different statistics and chose this one because it is easy to understand
-and produces good results for these word clouds. Many other statistics,
-including the commonly
+I give no theoretical justification for this choice of statistic. I simply
+experimented with a few different statistics and chose this one because it is
+easy to understand and produces good results for these word clouds. Many other
+statistics, including the commonly
 used
 [term frequency-inverse document frequency](https://en.wikipedia.org/wiki/Tf–idf) produce
 results which still do not clearly distinguish between the seasons. (Note that
