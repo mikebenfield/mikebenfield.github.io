@@ -25,3 +25,7 @@ github_username:  mikebenfield
 # Build settings
 markdown: kramdown
 theme: minima
+
+# Atom
+gems:
+  - jekyll-feed
