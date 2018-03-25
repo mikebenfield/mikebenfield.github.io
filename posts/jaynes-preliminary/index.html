@@ -3,8 +3,8 @@
 <head>
   
   <meta charset="utf-8">
-  <title>Michael Benfield&#39;s blog</title>
-  <meta name="description" content="Michael Benfield&#39;s blog">
+  <title>Comments on Jaynes&#39;s Probability Theory: The Logic of Science</title>
+  <meta name="description" content="Comments on Jaynes&#39;s Probability Theory: The Logic of Science">
   <meta name="author" content="Michael Benfield">
   
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -337,8 +337,6 @@ body {
 
   
   
-  <link href="http://mikebenfield.github.io/index.xml" rel="alternate" type="application/rss+xml" title="Michael Benfield&#39;s blog Feed" />
-  
 
   <meta name="generator" content="Hugo 0.30.2" />
 
@@ -391,119 +389,268 @@ MathJax.Hub.Config({
 
 <div class="pure-g">
   <div class="pure-u-1-24 pure-u-md-1-6"></div>
-	<div class="pure-u-11-12 pure-u-md-2-3">
-	<div class="post-content">
-	
-	  <p class="posts-name">Recent posts:</p>
+  <div class="pure-u-11-12 pure-u-md-2-3">
+    <div class="post">
 
-	  <ul class="posts">
-		
-		
-		
-		<li>
-		  
-		  <a class="post-list" href="http://mikebenfield.github.io/posts/darboux/">A new result for overdetermined systems of differential equations</a>
+      <div class="post-title">
+        <p class="footnote">
+        <time class="">10-07-2016</time>
+        
+        
+        
 
-		  <p class="footnote">
-			<time datetime="03-25-2018T00:00:00Z">03-25-2018</time>
+        
 
-			
+        
+        </p>
+        <h1>Comments on Jaynes&#39;s Probability Theory: The Logic of Science</h1>
+      </div>
 
-			
+      <div class="post-content">
+        
 
-			
+<p>$$\newcommand{\P}{\mathbf P}$$</p>
 
-			
+<h1 id="introduction">Introduction</h1>
 
-		  </p>
-		</li>
-		
-		
-		
-		
-		
-		<li>
-		  
-		  <a class="post-list" href="http://mikebenfield.github.io/posts/metrics-for-classifiers/">Metrics for Classifiers</a>
+<p>E.T. Jaynes was a physicist at Washington University in St. Louis. He died in
+1998, but his book <em>Probability Theory: The Logic of Science</em> was posthumously
+published in 2003 from his unfinished manuscript. The book is not so much about
+probability theory as a mathematician would understand the term, but instead is
+an introduction to Bayesian statistical inference. Moreover, Jaynes takes an
+unusual starting point for his theory, completely discarding traditional
+measure-theoretic probability theory, and instead basing his inferential
+procedures on the notion of probability theory as an extended logic.</p>
 
-		  <p class="footnote">
-			<time datetime="01-31-2017T00:00:00Z">01-31-2017</time>
+<p>To illustrate this difference, consider the common introductory problem in
+probability (which Jaynes also uses) that begins with colored balls in an urn.
+Suppose there are 2 red balls and 3 white, and we are to reach into the urn and
+pull out a ball. If I were a traditional probabilist, I might create a sample
+space consisting of the five items ${R_1,R_2,W_1,W_2,W_3}$, corresponding to
+the outcome that we drew the first red ball, the second red ball, the first
+white ball, and so on. Then I would assign probabilities to each outcome: in the
+absence of any additional information, it seems the reasonable thing to do is to
+assign equal probability to each outcome, and thus each one is assigned the
+probability $\frac 1 5$. Then if I were to ask myself, &ldquo;What is the probability
+I will draw a red ball?&ldquo;, I would proceed by letting $C$ be the random variable
+into the space ${R, W}$ that maps each $R_i$ to $R$ and each $W_i$ to $W$. The
+probability that I will draw a red ball is $\P[C=R]=\P[C^{-1} (
+R)]=\P[R_1]+\P[R_2] = \frac 2 5$. Of course in practice we wouldn&rsquo;t need to do
+everything quite so explicitly for such a simple problem, but that&rsquo;s the
+underlying process.</p>
 
-			
+<p>In contrast, Jaynes assigns probabilities directly to propositions. Thus, he
+might assign the probability $\frac 1 5$ to each of the propositions <em>I drew the
+first red ball</em>, <em>I drew the second red ball</em>, and so on. Then, based on certain
+quantitative rules for probabilistic reasoning Jaynes introduces in Chapter 2,
+he concludes that the probability of the proposition <em>I drew a red ball</em> is the
+sum of the probability of the propositions <em>I drew the $i$th red ball</em> for
+$i=1,2$, or $2 5$. In this way Jaynes (claims to) circumvent the entire measure
+theoretic apparatus of probability theory.</p>
 
-			
+<p>I like a lot of things about this book, and in fact found its perspective
+enlightening. I might write a later blog post about that. However, this post
+will focus on several things I do not like. Jaynes has a lot of complaints with
+modern mathematics. He doesn&rsquo;t think mathematics is in a &ldquo;healthy state.&rdquo; This
+is all a lot of nonsense, based on misunderstandings that were resolved within
+mathematics over a century ago, and well understood by essentially every
+mathematician today.</p>
 
-			
+<p>Jaynes believes his approach to inference circumvents the need for measure
+theory. And, indeed, in finite examples like the urn described above, measure
+theory is entirely unnecessary. But those examples are not why measure theory
+was created: measure theory was developed to handle difficult applications
+involving infinity and limits. That brings us to our first topic.</p>
 
-			
+<h1 id="limits">Limits</h1>
 
-		  </p>
-		</li>
-		
-		
-		
-		<li>
-		  
-		  <a class="post-list" href="http://mikebenfield.github.io/posts/tng/">Exploring Star Trek: The Next Generation with some word clouds</a>
+<p>Jaynes displays a considerable amount of anxiety about limits and infinite sets.
+I&rsquo;m not sure if he would have described himself as a
+<a href="https://en.wikipedia.org/wiki/Finitism">finitist</a>, but his statements certainly
+resemble that philosophy. His worries resemble those of early 19th century
+mathematicians, and seem completely anachronistic today. To a modern
+mathematician, there is a simple and precise definition of the term <em>limit</em>,
+which has been extensively tested and found to capture exactly the features one
+wants limits to have. In taking a limit operation, a mathematician simply
+ensures that the result follows from the definition.<sup class="footnote-ref" id="fnref:1"><a rel="footnote" href="#fn:1">1</a></sup></p>
 
-		  <p class="footnote">
-			<time datetime="11-21-2016T00:00:00Z">11-21-2016</time>
+<p>For Jaynes, there appears to be no definition of a limit and no precise way to
+ensure that one&rsquo;s limiting procedures are acceptable. Instead, when one must
+take a limit, one must use ad hoc methods to arrive at the result (with a few
+vague guiding principles), and carefully check that one&rsquo;s results correspond
+with intuition.</p>
 
-			
+<p>In section 15.2, Jaynes illustrates that one cannot sum an infinite series by
+arbitrarily rearranging and cancelling terms the way one naively might expect.
+He gives the impression that this is a phenomenon not understood by modern
+mathematicians, who are frequently making errors due to taking limits
+incorrectly. This is of course absurd. Every student of mathematics who has
+understood his elementary real analysis class knows that this is not a valid way
+to sum series, because it does not follow from the definition of a limit. There
+is no need to follow Jaynes&rsquo;s vague dictum, &ldquo;Apply the ordinary processes of
+arithmetic and analysis only to expressions with a finite number $n$ of terms.&rdquo;
+There is only a need to understand what a limit actually is.</p>
 
-			
+<h1 id="cox-s-theorem">Cox&rsquo;s Theorem</h1>
 
-			
+<p>This book brought the so-called Cox&rsquo;s Theorem to my attention. In Jaynes&rsquo;s
+description (which occupies parts of Chapters 1 and 2), this theorem asserts
+that if we wish our probabilistic reasoning to follow certain intuitively
+obvious rules, we have no choice but to follow all the rules of probability
+theory as described in the book.</p>
 
-			
+<p>The problem, as is often the case with non-mathematician writers writing
+mathematical works, is that Jaynes never clearly states the theorem. I
+understand that many casual readers of mathematics are turned off by the
+Theorem-proof format that mathematicians often use. It can be boring or
+intimidating or otherwise a turnoff. But its great advantage is that it
+encourages the writer to clearly and precisely state his claim and its proof.</p>
 
-		  </p>
-		</li>
-		
-		
-		
-		<li>
-		  
-		  <a class="post-list" href="http://mikebenfield.github.io/posts/missing-data/">Missing Data</a>
+<p>Instead, Jaynes states a very vague, rough version of the theorem, but freely
+introduces extra hypotheses throughout his proof. I still don&rsquo;t actually know
+exactly what the theorem says (someday I will read Cox&rsquo;s work to find out).</p>
 
-		  <p class="footnote">
-			<time datetime="10-19-2016T00:00:00Z">10-19-2016</time>
+<h1 id="bogus-nondifferentiable-functions">Bogus nondifferentiable functions</h1>
 
-			
+<p>In the latter half of the 19th century, mathematics was becoming more rigorous,
+and the sometimes incomplete, fast-and-loose reasoning used since the era of
+Newton and Liebniz was being shored up with new techniques. In the course of
+this rigorization process, mathematicians discovered previously unknown
+strangely behaved functions, such as the <a href="https://en.wikipedia.org/wiki/Weierstrass_function">Weierstrass
+function</a>. These functions
+provoked some amount of consternation in the mathematical community at the time,
+but gradually it was realized of these functions that</p>
 
-			
+<ol>
+<li><p>they do indeed exist and have interesting properties, so why not study them?</p></li>
 
-			
+<li><p>they are actually useful and necessary for some theories; for instance, if
+you want a reasonable mathematical theory involving the Dirac delta, your
+theory must include every continuous function, including the nowhere
+differentiable ones.</p></li>
+</ol>
 
-			
+<p>In the appendix B.5.3, Jaynes discusses nondifferentiable functions. His thesis
+in this section is hard to discern, but he seems to make the following points:</p>
 
-		  </p>
-		</li>
-		
-		
-		
-		<li>
-		  
-		  <a class="post-list" href="http://mikebenfield.github.io/posts/jaynes-preliminary/">Comments on Jaynes&#39;s Probability Theory: The Logic of Science</a>
+<ol>
+<li><p>nondifferentiable functions are useless, and mathematicians are foolish for
+spending so much time on them;</p></li>
 
-		  <p class="footnote">
-			<time datetime="10-07-2016T00:00:00Z">10-07-2016</time>
+<li><p>the delta function is very useful, and mathematicians are foolish
+for not utilizing it;</p></li>
+</ol>
 
-			
+<p>This is inane for a variety of reasons. Most obviously, mathematicians use the
+delta function extensively and have developed the theory of distributions (or
+generalized functions) around it.</p>
 
-			
+<p>Beyond that, points 1 and 2 are obviously in conflict. The delta function is the
+ultimate representative example of why functions that were formerly considered
+badly behaved are important. In fact, the delta function is so badly behaved
+that it&rsquo;s not actually even a function!</p>
 
-			
+<p>At the end of this section, Jaynes writes</p>
 
-			
+<blockquote>
+<p>Note, therefore, that we stamp out this plague too, simply by defining the term
+&lsquo;function&rsquo; in the way appropriate to our subject. The definition of
+a mathematical concept that is &lsquo;appropriate&rsquo; to some field is the one that
+allows its theorems to have the greatest range of validity and useful
+applications, without the need for a long list of exceptions, special cases,
+and other anomalies. In our work the term &lsquo;function&rsquo; includes good functions
+and well-behaved limits of sequences of good functions; but not
+nondifferentiable functions. We do not deny the existence of other definitions
+which do include nondifferentiable functions, any more than we deny the
+existence of fluorescent purple hair dye in England; in both case, we simply
+have no use for them.</p>
+</blockquote>
 
-		  </p>
-		</li>
-		
-		
-	  </ul>
-	</div>
-	</div>
+<p>At this point I have to wonder if Jaynes ever read a work by a mathematician
+written later than 1920, because all modern mathematicians are very clear about
+which functions their theory applies to, and freely ignore other classes of
+functions. The differences between what mathematicians do and what Jaynes
+proposes are</p>
+
+<ol>
+<li><p>mathematicians tend to carry around a label referring to the class of
+functions under discussion; a mathematical work might consistently refer to
+&lsquo;analytic functions&rsquo;, rather than just saying at the outset &lsquo;in this work all
+functions are analytic.&rsquo; In practice this is a much better approach; how is a
+casual reader turning to the middle of your book supposed to know that when you
+say &lsquo;function&rsquo; you mean &lsquo;analytic function&rsquo;? Besides, what if the author needs
+to occasionally refer to non-analytic functions?</p></li>
+
+<li><p>mathematicians actually give clear definitions. Jaynes seems to believe that
+he can just say &lsquo;good function&rsquo; and the reader will somehow know which functions
+he considers good. He also thinks he can say &lsquo;well-behaved limits&rsquo;, and the
+reader will know what he means. This is bizarre, since he includes the delta
+function but excludes continuous nondifferentiable functions, when by any
+reasonable definition the latter are much more well-behaved.</p></li>
+</ol>
+
+<h1 id="measure-theory">Measure theory</h1>
+
+<p>In section B.7, Jaynes discusses the Hausdorff sphere paradox. This is the
+theorem that there are three congruent subsets $X,Y,Z$ of the sphere such that
+their union nearly covers the sphere, and such that each of $X,Y,Z$ is also
+congruent to $X \cup Y$. Jaynes says, &ldquo;We are&hellip; puzzled by how mathematicians
+can accept and publish such results; why do they not see in this a blatant
+contradiction which invalidates the reasoning they are using?&rdquo;</p>
+
+<p>Apparently Jaynes&rsquo;s reasoning goes like this: subsets of the sphere are like
+pieces of an orange peel. Since I can&rsquo;t divide an orange peel up into pieces
+$X,Y,Z$ that have the characteristics of those subsets in the Hausdorff sphere
+paradox, there must be something wrong with the mathematical framework that
+produced the Hausdorff sphere paradox. The point that Jaynes has missed is this:
+arbitrary subsets of the sphere are not good mathematical objects for modeling
+pieces of an orange peel. Instead, <em>measurable</em> subsets of the sphere are what
+one should use for modeling pieces of an orange peel. Measurable subsets don&rsquo;t
+exhibit this behavior.</p>
+
+<p>Here&rsquo;s an analogy. Imagine you are teaching calculus. A student comes to you and
+says,</p>
+
+<p>&ldquo;I need to make a mathematical model of the motion of this train along its
+track. What mathematical object can I use for this purpose?&rdquo;</p>
+
+<p>You say, &ldquo;Ah, you want the functions $\mathbb R \to \mathbb R$. The independent
+variable is time, and the dependent variable is the position of the train on the
+track.&rdquo;</p>
+
+<p>Student: &ldquo;Okay, great. Hey, wait a minute though! There are functions that
+behave in crazy ways! Discontinuous functions and all kinds of weird stuff. My
+train doesn&rsquo;t jump around like that! Isn&rsquo;t this an indication that something is
+wrong with mathematics?&rdquo;</p>
+
+<p>You: &ldquo;No, nothing is wrong with mathematics. By all means you can use only the
+continuous funcions if that&rsquo;s all you need, but the other functions are still
+there for those who need them.&rdquo;</p>
+
+<p>Similarly, the fact that there exist nonmeasurable sets is not an obstacle to
+modeling phenomena like orange peels. If you don&rsquo;t need nonmeasurable sets,
+don&rsquo;t use them, and you won&rsquo;t ever have to worry about phenomena like the
+Hausdorff sphere paradox.</p>
+
+<h1 id="conclusion">Conclusion</h1>
+
+<p>There&rsquo;s plenty more wrong with Jaynes&rsquo;s view of mathematics and mathematicians,
+but this seems sufficient for this blog post. It&rsquo;s really unfortunate that such
+an interesting work is marred by these inane, ill-informed digressions about the
+nature of mathematics.</p>
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:1">Actually, the situation in general is more complicated. There are different types of limits, and which limit is appropriate depends on several factors. However, this is a complete nonissue in the mathematically simple problems Jaynes consider.
+ <a class="footnote-return" href="#fnref:1"><sup>[return]</sup></a></li>
+</ol>
+</div>
+
+      </div>
+    </div>
+  </div>
   <div class="pure-u-1-24 pure-u-md-1-6"></div>
 </div>
 
@@ -535,7 +682,7 @@ MathJax.Hub.Config({
 
         </ul>
         <a href="#" class="pure-menu-link pull-right" id="gototop-btn">↑↑</a>
-        <a href="http://mikebenfield.github.io/index.xml" class="pure-menu-link pull-right">RSS</a>
+        <a href="" class="pure-menu-link pull-right">RSS</a>
       </div>
       
     </div>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Michael Benfield&#39;s blog</title>
+    <link>http://mikebenfield.github.io/</link>
+    <description>Recent content on Michael Benfield&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <managingEditor>mike.benfield@gmail.com (Michael Benfield)</managingEditor>
+    <webMaster>mike.benfield@gmail.com (Michael Benfield)</webMaster>
+    <lastBuildDate>Sun, 25 Mar 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://mikebenfield.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>A new result for overdetermined systems of differential equations</title>
+      <link>http://mikebenfield.github.io/posts/darboux/</link>
+      <pubDate>Sun, 25 Mar 2018 00:00:00 +0000</pubDate>
+      <author>mike.benfield@gmail.com (Michael Benfield)</author>
+      <guid>http://mikebenfield.github.io/posts/darboux/</guid>
+      <description>I and my collaborators Irina Kogan and Kris Jenssen have submitted a paper on our new theorem.
+We&#39;ll have a preprint of the paper on the arXiv soon, and I&#39;ll update this post with a link then. However, it will not be an easy read for non-mathematicians, so I will describe the result informally for the non-expert reader in this post. The reader will need to know enough calculus to know what a directional derivative is, and ideally will have taken a course in differential equations.</description>
+    </item>
+    
+    <item>
+      <title>About</title>
+      <link>http://mikebenfield.github.io/about/</link>
+      <pubDate>Thu, 22 Mar 2018 19:17:34 -0700</pubDate>
+      <author>mike.benfield@gmail.com (Michael Benfield)</author>
+      <guid>http://mikebenfield.github.io/about/</guid>
+      <description>I&amp;rsquo;m Michael Benfield. I&amp;rsquo;ll probably be writing about mathematics, AI/machine learning, and programming.</description>
+    </item>
+    
+    <item>
+      <title>Metrics for Classifiers</title>
+      <link>http://mikebenfield.github.io/posts/metrics-for-classifiers/</link>
+      <pubDate>Tue, 31 Jan 2017 00:00:00 +0000</pubDate>
+      <author>mike.benfield@gmail.com (Michael Benfield)</author>
+      <guid>http://mikebenfield.github.io/posts/metrics-for-classifiers/</guid>
+      <description>Introduction Suppose we have two binary classifiers and want to compare their predictive performance. The simplest approach may be to evaluate the accuracy of each classifier. Much ink has been spilled about the flaws in this approach, but I believe most of the alternatives commonly used in the machine learning community are not much better. Instead, I advocate testing probability estimators, not classifiers, using a metric like the Brier score.</description>
+    </item>
+    
+    <item>
+      <title>Exploring Star Trek: The Next Generation with some word clouds</title>
+      <link>http://mikebenfield.github.io/posts/tng/</link>
+      <pubDate>Mon, 21 Nov 2016 00:00:00 +0000</pubDate>
+      <author>mike.benfield@gmail.com (Michael Benfield)</author>
+      <guid>http://mikebenfield.github.io/posts/tng/</guid>
+      <description>Introduction I conducted a simple and fun exploration of the television show Star Trek: The Next Generation (TNG). I used transcripts of the show and made word clouds for each season and character. (I got the transcripts from the excellent Chrissie&#39;s Transcripts Site.)
+As it turns out, the usual word clouds ranked by frequency don&#39;t clearly distinguish between seasons or between characters (everybody says &amp;quot;sir&amp;quot; all the time), so I created a type of relative word cloud that rewards words that appear in a given season (or are said by a given character) more than other seasons (or more than other characters).</description>
+    </item>
+    
+    <item>
+      <title>Missing Data</title>
+      <link>http://mikebenfield.github.io/posts/missing-data/</link>
+      <pubDate>Wed, 19 Oct 2016 00:00:00 +0000</pubDate>
+      <author>mike.benfield@gmail.com (Michael Benfield)</author>
+      <guid>http://mikebenfield.github.io/posts/missing-data/</guid>
+      <description>\(\newcommand{\P}{\mathbf P}\) \(\newcommand{\E}{\mathbf E}\)
+Introduction Several strategies for learning in the presence of missing data are in common use. In this post I&#39;ll apply some of these strategies to an artifically generated dataset and show that one of the common strategies, mean imputing, is a poor approach. I&#39;m going to use artificial data to more clearly illustrate the different ways in which data can be missing.
+The data Suppose we have random variables $(X_0,X_1)$ sampled from a multivariate normal distribution with mean $(0,0)$ and covariance</description>
+    </item>
+    
+    <item>
+      <title>Comments on Jaynes&#39;s Probability Theory: The Logic of Science</title>
+      <link>http://mikebenfield.github.io/posts/jaynes-preliminary/</link>
+      <pubDate>Fri, 07 Oct 2016 00:00:00 +0000</pubDate>
+      <author>mike.benfield@gmail.com (Michael Benfield)</author>
+      <guid>http://mikebenfield.github.io/posts/jaynes-preliminary/</guid>
+      <description>$$\newcommand{\P}{\mathbf P}$$
+Introduction E.T. Jaynes was a physicist at Washington University in St. Louis. He died in 1998, but his book Probability Theory: The Logic of Science was posthumously published in 2003 from his unfinished manuscript. The book is not so much about probability theory as a mathematician would understand the term, but instead is an introduction to Bayesian statistical inference. Moreover, Jaynes takes an unusual starting point for his theory, completely discarding traditional measure-theoretic probability theory, and instead basing his inferential procedures on the notion of probability theory as an extended logic.</description>
+    </item>
+    
+  </channel>
+</rss>

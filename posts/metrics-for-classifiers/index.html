@@ -3,8 +3,8 @@
 <head>
   
   <meta charset="utf-8">
-  <title>Michael Benfield&#39;s blog</title>
-  <meta name="description" content="Michael Benfield&#39;s blog">
+  <title>Metrics for Classifiers</title>
+  <meta name="description" content="Metrics for Classifiers">
   <meta name="author" content="Michael Benfield">
   
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -337,8 +337,6 @@ body {
 
   
   
-  <link href="http://mikebenfield.github.io/index.xml" rel="alternate" type="application/rss+xml" title="Michael Benfield&#39;s blog Feed" />
-  
 
   <meta name="generator" content="Hugo 0.30.2" />
 
@@ -391,119 +389,114 @@ MathJax.Hub.Config({
 
 <div class="pure-g">
   <div class="pure-u-1-24 pure-u-md-1-6"></div>
-	<div class="pure-u-11-12 pure-u-md-2-3">
-	<div class="post-content">
-	
-	  <p class="posts-name">Recent posts:</p>
+  <div class="pure-u-11-12 pure-u-md-2-3">
+    <div class="post">
 
-	  <ul class="posts">
-		
-		
-		
-		<li>
-		  
-		  <a class="post-list" href="http://mikebenfield.github.io/posts/darboux/">A new result for overdetermined systems of differential equations</a>
+      <div class="post-title">
+        <p class="footnote">
+        <time class="">01-31-2017</time>
+        
+        
+        
 
-		  <p class="footnote">
-			<time datetime="03-25-2018T00:00:00Z">03-25-2018</time>
+        
 
-			
+        
+        </p>
+        <h1>Metrics for Classifiers</h1>
+      </div>
 
-			
+      <div class="post-content">
+        
 
-			
+<h1 id="introduction">Introduction</h1>
 
-			
+<p>Suppose we have two binary classifiers and want to compare their predictive
+performance. The simplest approach may be to evaluate the <em>accuracy</em> of each
+classifier. Much ink has been spilled about the flaws in this approach, but I
+believe most of the alternatives commonly used in the machine learning community
+are not much better. Instead, I advocate testing <em>probability estimators</em>, not
+classifiers, using a metric like the <em>Brier score</em>.</p>
 
-		  </p>
-		</li>
-		
-		
-		
-		
-		
-		<li>
-		  
-		  <a class="post-list" href="http://mikebenfield.github.io/posts/metrics-for-classifiers/">Metrics for Classifiers</a>
+<h1 id="the-difficulty">The difficulty</h1>
 
-		  <p class="footnote">
-			<time datetime="01-31-2017T00:00:00Z">01-31-2017</time>
+<p>To evaluate the accuracy of a classifier, we have a test set $\mathcal X$, and
+for each classifier we evaluate</p>
 
-			
+<p>$$\frac{1}{|\mathcal X|} \sum_{x\in\mathcal X} [p(x) = c(x)] . $$</p>
 
-			
+<p>Here $p(x)$ is the class predicted by the classifier and $c(x)$ is the
+actual class. For a proposition $P$, $[P]=1$ if $P$ is true, and $[P]=0$
+otherwise.</p>
 
-			
+<p>Thus the accuracy is the probability of correctly classifying a randomly chosen
+data point.</p>
 
-			
+<p>One of the problems people sometimes point to with accuracy is that it doesn&rsquo;t
+take into account the fact that the distribution of the classes may be different
+in the real data compared to the training or test data. I don&rsquo;t take this
+complaint seriously. If your training data is not distributed more or less like
+your real data, or at least if you don&rsquo;t have some idea how the real data
+differs from the training data, your problem is hopeless to begin with.</p>
 
-		  </p>
-		</li>
-		
-		
-		
-		<li>
-		  
-		  <a class="post-list" href="http://mikebenfield.github.io/posts/tng/">Exploring Star Trek: The Next Generation with some word clouds</a>
+<p>A more substantive complaint is that scoring by accuracy doesn&rsquo;t take into
+account the fact that different problems may have different loss functions. For
+some problems, a false positive and a false negative may be equally bad (and for
+such a problem accuracy is actually a perfectly good metric!), but for other
+problems, they may not. Imagine a preliminary medical test for a serious illness
+in which a positive result means the patient goes for more extensive and more
+accurate testing, while a negative result means the patient goes home and never
+gets tested again. In this scenario, a false negative may be much worse than a
+false positive. If the illness is rare, a classifier may simply <em>always</em> predict
+negative, earning a high accuracy score and yet being absolutely worthless!</p>
 
-		  <p class="footnote">
-			<time datetime="11-21-2016T00:00:00Z">11-21-2016</time>
+<p>Several alternative metrics have been proposed to address this problem. Most of
+them, in my opinion, miss the
+mark. The <a href="https://en.wikipedia.org/wiki/Receiver_operating_characteristic">ROC</a>
+curve has a better idea, and the related AUC metric reduces it to a single
+number. However, in my opinion this metric overcomplicates the issue and is
+difficult to interpret. Indeed, as far as I know there are no theoretical
+guarantees that a better predictor (in the sense I discuss below) will get a
+better AUC score.</p>
 
-			
+<h1 id="a-better-idea">A better idea</h1>
 
-			
+<p>The reason why we have these difficulties evaluating a classifier is that
+classifying actually consists of two steps: probability estimation (estimating
+the probability that our data point falls into each class), and classication
+proper (using the estimated probability and our loss function to pick a class).
+The second step is easy: just pick whichever class gives us the lowest expected
+loss based on our estimated probability. But the second step is also the one
+which varies from problem to problem, and which causes all the difficulties in
+evaluating classifiers.</p>
 
-			
+<p>Instead of evaluating the <em>classifier</em>, we should be evaluating the underlying
+<em>probability estimator</em>. If the algorithm does a good job of estimating the
+probability for each class, then we can easily translate that into good
+classifications given a loss function. Fortunately, a metric to evaluate
+predictors has already been developed. Actually, it was developed over sixty
+years ago by the weather forecasting community. It&rsquo;s
+the <a href="https://en.wikipedia.org/wiki/Brier_score">Brier score</a>. In the Brier
+score, we evaluate a probability estimation on a test set $\mathcal X$ by</p>
 
-			
+<p>$$\frac{1}{|\mathcal X|} \sum_{x\in\mathcal X} (f(x) - o(x))^2 . $$</p>
 
-		  </p>
-		</li>
-		
-		
-		
-		<li>
-		  
-		  <a class="post-list" href="http://mikebenfield.github.io/posts/missing-data/">Missing Data</a>
+<p>Here $f(x)$ is the predicted probability of $x$ being of a desired class $C$,
+while $o(x)$ is 1 if $x$ is indeed of class $C$ and 0 otherwise. Thus an
+algorithm will get a better (that is, lower) Brier score by giving a high
+probability to the outcomes that actually appear in the test set, and it can
+expect to achieve the best possible score by predicting the correct
+probabilities (in the terminology of decision theory, it is a
+<a href="https://en.wikipedia.org/wiki/Scoring_rule#Proper_scoring_rules">proper scoring rule</a>).</p>
 
-		  <p class="footnote">
-			<time datetime="10-19-2016T00:00:00Z">10-19-2016</time>
+<p>Conveniently, the Brier score is already available
+in
+<a href="https://www.google.com/search?client=safari&amp;rls=en&amp;q=sklearn+brier+score&amp;ie=UTF-8&amp;oe=UTF-8">sklearn</a>. Give
+it a try.</p>
 
-			
-
-			
-
-			
-
-			
-
-		  </p>
-		</li>
-		
-		
-		
-		<li>
-		  
-		  <a class="post-list" href="http://mikebenfield.github.io/posts/jaynes-preliminary/">Comments on Jaynes&#39;s Probability Theory: The Logic of Science</a>
-
-		  <p class="footnote">
-			<time datetime="10-07-2016T00:00:00Z">10-07-2016</time>
-
-			
-
-			
-
-			
-
-			
-
-		  </p>
-		</li>
-		
-		
-	  </ul>
-	</div>
-	</div>
+      </div>
+    </div>
+  </div>
   <div class="pure-u-1-24 pure-u-md-1-6"></div>
 </div>
 
@@ -535,7 +528,7 @@ MathJax.Hub.Config({
 
         </ul>
         <a href="#" class="pure-menu-link pull-right" id="gototop-btn">↑↑</a>
-        <a href="http://mikebenfield.github.io/index.xml" class="pure-menu-link pull-right">RSS</a>
+        <a href="" class="pure-menu-link pull-right">RSS</a>
       </div>
       
     </div>
