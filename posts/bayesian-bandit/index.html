@@ -3,8 +3,8 @@
 <head>
   
   <meta charset="utf-8">
-  <title>Michael Benfield&#39;s blog</title>
-  <meta name="description" content="Michael Benfield&#39;s blog">
+  <title>Two Bayesian Approaches to the Multi-Armed Bandit Problem</title>
+  <meta name="description" content="Two Bayesian Approaches to the Multi-Armed Bandit Problem">
   <meta name="author" content="Michael Benfield">
   
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -337,8 +337,6 @@ body {
 
   
   
-  <link href="http://mikebenfield.github.io/index.xml" rel="alternate" type="application/rss+xml" title="Michael Benfield&#39;s blog Feed" />
-  
 
   <meta name="generator" content="Hugo 0.30.2" />
 
@@ -391,139 +389,139 @@ MathJax.Hub.Config({
 
 <div class="pure-g">
   <div class="pure-u-1-24 pure-u-md-1-6"></div>
-	<div class="pure-u-11-12 pure-u-md-2-3">
-	<div class="post-content">
-	
-	  <p class="posts-name">Recent posts:</p>
+  <div class="pure-u-11-12 pure-u-md-2-3">
+    <div class="post">
 
-	  <ul class="posts">
-		
-		
-		
-		<li>
-		  
-		  <a class="post-list" href="http://mikebenfield.github.io/posts/bayesian-bandit/">Two Bayesian Approaches to the Multi-Armed Bandit Problem</a>
+      <div class="post-title">
+        <p class="footnote">
+        <time class="">04-12-2018</time>
+        
+        
+        
 
-		  <p class="footnote">
-			<time datetime="04-12-2018T00:00:00Z">04-12-2018</time>
+        
 
-			
+        
+        </p>
+        <h1>Two Bayesian Approaches to the Multi-Armed Bandit Problem</h1>
+      </div>
 
-			
+      <div class="post-content">
+        
 
-			
+<h1 id="background-the-multi-armed-bandit">Background: The Multi-Armed Bandit</h1>
 
-			
+<p>The multi-armed bandit is a classic problem in artificial intelligence that
+illustrates the exploitation vs. exploration dilemma. Here&rsquo;s the idea: suppose
+you&rsquo;re sitting in front of a special slot machine with M different levers. Each
+lever i has a probability $p_i$ of giving you a payoff when you pull it. You
+don&rsquo;t know the probabilities $p_i$. So you start pulling levers, and before long
+you have some estimates of the probabilities based on the proportion of times
+each lever has given you a reward.</p>
 
-		  </p>
-		</li>
-		
-		
-		
-		<li>
-		  
-		  <a class="post-list" href="http://mikebenfield.github.io/posts/darboux/">A new result for overdetermined systems of differential equations</a>
+<p>So you could focus on the lever that has given you the highest proportion of
+rewards so far, or you could pull other levers to further explore their reward
+probability, on the chance that you haven&rsquo;t pulled them enough times yet to get
+a good estimate of their probability. That is, exploitation vs. exploration.</p>
 
-		  <p class="footnote">
-			<time datetime="03-25-2018T00:00:00Z">03-25-2018</time>
+<p>For this post we&rsquo;re going to use a finite horizon, meaning we only get $N$ total
+pulls and then we have to stop.</p>
 
-			
+<p>(The multi-armed bandit problem has many different setups, and may be more
+general than this: it may be that the reward for each unknown is drawn from an
+unknown probability distribution, instead of just from a Bernoulli distribution
+with unknown mean. Also, an infinite horizon is often used. But this simple
+setup is what I&rsquo;ll focus on here.)</p>
 
-			
+<h1 id="a-dynamic-programming-bayesian-approach">A Dynamic Programming Bayesian Approach</h1>
 
-			
+<p>So yesterday I was thinking about this problem, and I thought: why not use a
+simple Bayesian approach? Let the reward (0 or 1) of lever $i$ the $j$th time
+(starting at $j=0$) it is pulled be the random variable $X^i_j$. Let the
+distribution of $X^i_j$ be $\operatorname{Beta}(\alpha^k_j, \beta^i_j)$
+<sup class="footnote-ref" id="fnref:beta-footnote"><a rel="footnote" href="#fn:beta-footnote">1</a></sup>,
+where $\alpha_0$ and $\beta_0$ are chosen to make an appropriate prior and</p>
 
-			
+<p>$$\alpha^i_{j+1} = \alpha^i_j + X^i_j$$</p>
 
-		  </p>
-		</li>
-		
-		
-		
-		
-		
-		<li>
-		  
-		  <a class="post-list" href="http://mikebenfield.github.io/posts/metrics-for-classifiers/">Metrics for Classifiers</a>
+<p>and</p>
 
-		  <p class="footnote">
-			<time datetime="01-31-2017T00:00:00Z">01-31-2017</time>
+<p>$$\beta^i_{j+1} = \beta^i_j + 1 - X^i_j .$$</p>
 
-			
+<p>Thus, each time we observe a success or failure on a given lever, we update our
+prior probability for that lever to reflect the new information.</p>
 
-			
+<p>Then this becomes like a discrete time optimal control problem. Our states are
+the current pairs $(\alpha^i_j, \beta^i_j)$ for each lever. Each time step the
+control we choose is a lever $i$, and we get a random reward $X^i_j$, and the
+state is updated. We can use dynamic programming to solve this. At time step
+$N-1$, we can simply choose the lever whose Beta distribution has the highest
+mean, and at each earlier time we choose the lever that gives the highest
+expected reward (adding the current reward and future expected rewards).</p>
 
-			
+<p>It&rsquo;s kind of an odd optimal control problem though, and I guess technically it
+doesn&rsquo;t really count as one. The problem is that our random variables $X^i_j$
+don&rsquo;t reflect the &ldquo;real&rdquo; distributions. That is, the rewards for each lever arm
+in reality are supposed to be fixed (but unknown) probabilities, and if we were
+going to simulate the multi-armed bandit, we&rsquo;d have to choose those fixed
+probabilities. But in our model, the distributions for each reward simply
+reflect our belief at each time step about those probabilites.</p>
 
-			
+<p>Now, a little reflection will reveal a glaring problem with this approach.
+Typically with dynamic programming, for a problem with $N$ time steps, $n$
+states, and $m$ control elements, our runtime is $O(nmN)$. The problem in this
+case is that the number of possible states $n$ grows exponentially with the
+number of time steps $N$. That&rsquo;s not good, and it means this is not going to be
+a viable approach in many cases. Still, maybe it could work well when $N$ is
+small, or when it&rsquo;s medium sized and the policy can be computed ahead of time.</p>
 
-		  </p>
-		</li>
-		
-		
-		
-		<li>
-		  
-		  <a class="post-list" href="http://mikebenfield.github.io/posts/tng/">Exploring Star Trek: The Next Generation with some word clouds</a>
+<p>I wanted to compare this method with a classical Bayesian approach.</p>
 
-		  <p class="footnote">
-			<time datetime="11-21-2016T00:00:00Z">11-21-2016</time>
+<h1 id="thompson-sampling">Thompson Sampling</h1>
 
-			
+<p>In Thompson sampling, we similarly assign Beta priors to each lever and update
+them after each success or failure. But rather than trying to calculate
+everything ahead of time as in dynamic programming, we simply observe successes
+and failures as they happen. Then, each step, we sample a probability $p_i$ for
+each lever $i$ from its Beta distribution. We pull the lever of whichever $p_i$
+is largest. This neatly handles the exploration vs. exploitation issue.</p>
 
-			
+<h1 id="the-comparison">The Comparison</h1>
 
-			
+<p>I ran 100 iterations each of a few different two-armed bandit problems, with
+different fixed probabilities $(p_1, p_2)$. I used values of $N$ from 3 to 30.
+The dynamic programming approach seems to usually give total rewards from
+between 4% and 10% greater than the Thompson sampling approach, with a smaller
+standard deviation. That&rsquo;s good, and it makes sense: dynamic programming
+calculates ahead of time the policy that will give the highest expected reward
+(at least given the priors we have chosen). Thompson sampling is stochastic, and
+while in the long run it&rsquo;s almost certain to make reasonable choices, there&rsquo;s no
+guarantee at any given step it will choose the control element giving the
+highest expected reward.</p>
 
-			
+<p>So that&rsquo;s nice, and I think for some specialized problems there may be some
+value in this approach. But it&rsquo;s not going to work out for a long horizon.</p>
 
-		  </p>
-		</li>
-		
-		
-		
-		<li>
-		  
-		  <a class="post-list" href="http://mikebenfield.github.io/posts/missing-data/">Missing Data</a>
+<h1 id="future">Future</h1>
 
-		  <p class="footnote">
-			<time datetime="10-19-2016T00:00:00Z">10-19-2016</time>
+<p>At some point I&rsquo;d like to try out an approximate dynamic programming solution.
+One possibility is to use rolling horizon approach, in which dynamic programming
+is use for the next $\ell$ steps, but some form of cost estimation is used
+beyond that, thus avoiding the exponential runtime. It seems plausible to me
+that this would give comparable results to the full dynamic programming solution.</p>
+<div class="footnotes">
 
-			
+<hr />
 
-			
+<ol>
+<li id="fn:beta-footnote">Recall that, roughly speaking, $\operatorname{Beta}(\alpha, \beta)$ is a distribution of the probability of success if you have observed $\alpha$ successes and $\beta$ failures so far.
+ <a class="footnote-return" href="#fnref:beta-footnote"><sup>[return]</sup></a></li>
+</ol>
+</div>
 
-			
-
-			
-
-		  </p>
-		</li>
-		
-		
-		
-		<li>
-		  
-		  <a class="post-list" href="http://mikebenfield.github.io/posts/jaynes-preliminary/">Comments on Jaynes&#39;s Probability Theory: The Logic of Science</a>
-
-		  <p class="footnote">
-			<time datetime="10-07-2016T00:00:00Z">10-07-2016</time>
-
-			
-
-			
-
-			
-
-			
-
-		  </p>
-		</li>
-		
-		
-	  </ul>
-	</div>
-	</div>
+      </div>
+    </div>
+  </div>
   <div class="pure-u-1-24 pure-u-md-1-6"></div>
 </div>
 
@@ -555,7 +553,7 @@ MathJax.Hub.Config({
 
         </ul>
         <a href="#" class="pure-menu-link pull-right" id="gototop-btn">↑↑</a>
-        <a href="http://mikebenfield.github.io/index.xml" class="pure-menu-link pull-right">RSS</a>
+        <a href="" class="pure-menu-link pull-right">RSS</a>
       </div>
       
     </div>

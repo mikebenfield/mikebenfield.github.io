@@ -8,10 +8,19 @@
     <language>en-us</language>
     <managingEditor>mike.benfield@gmail.com (Michael Benfield)</managingEditor>
     <webMaster>mike.benfield@gmail.com (Michael Benfield)</webMaster>
-    <lastBuildDate>Sun, 25 Mar 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 12 Apr 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="http://mikebenfield.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Two Bayesian Approaches to the Multi-Armed Bandit Problem</title>
+      <link>http://mikebenfield.github.io/posts/bayesian-bandit/</link>
+      <pubDate>Thu, 12 Apr 2018 00:00:00 +0000</pubDate>
+      <author>mike.benfield@gmail.com (Michael Benfield)</author>
+      <guid>http://mikebenfield.github.io/posts/bayesian-bandit/</guid>
+      <description>Background: The Multi-Armed Bandit The multi-armed bandit is a classic problem in artificial intelligence that illustrates the exploitation vs. exploration dilemma. Here&amp;rsquo;s the idea: suppose you&amp;rsquo;re sitting in front of a special slot machine with M different levers. Each lever i has a probability $p_i$ of giving you a payoff when you pull it. You don&amp;rsquo;t know the probabilities $p_i$. So you start pulling levers, and before long you have some estimates of the probabilities based on the proportion of times each lever has given you a reward.</description>
+    </item>
     
     <item>
       <title>A new result for overdetermined systems of differential equations</title>
